@@ -133,6 +133,7 @@ function partyForm() {
   //makes container for the form
   const form = document.createElement("form");
 
+  // NAME
   //this makes a wrapper for the name feild
   const nameForm = document.createElement("div");
   // makes the label and set text to label
@@ -140,22 +141,8 @@ function partyForm() {
   nameLabel.textContent = "Name";
   //makes <input> for the name form
   const nameInput = document.createElement("input"); // i am typing in input and HTML just so happens to have a thing for <input> but if i just put "blarp" it woud not work
-  nameInput.name = "name";
+  nameInput.name = "name"; // for late use when fetching data
   nameInput.required = true; // this checks to make sure the user has to put something there
-
-  // make a wrapper and so forth for the description feild
-  const descForm = document.createElement("div");
-  const descLabel = document.createElement("label");
-  descLabel.textContent = "Description";
-  const descInput = document.createElement("input"); // can also use <textarea> to have a multi line description but I don't want to go outside my comfort zone.
-  descInput.name = "desciption";
-  descInput.required = true; //forces user to fill out
-
-  //
-
-  descLabel.appendChild(descInput);
-  descForm.appendChild(descLabel);
-  form.appendChild(descForm); // this process of inside of an inside is hard for me. need to practice more. maybe use neopets idea.
 
   // this appends the input to inside the label section
   nameLabel.appendChild(nameInput);
@@ -163,6 +150,49 @@ function partyForm() {
   nameForm.appendChild(nameLabel);
   // this appends the div that holds the label into the form??
   form.appendChild(nameForm);
+
+  //DESCRIPTION
+  // make a wrapper and so forth for the description feild
+  const descForm = document.createElement("div");
+  const descLabel = document.createElement("label");
+  descLabel.textContent = "Description";
+  const descInput = document.createElement("input"); // can also use <textarea> to have a multi line description but I don't want to go outside my comfort zone.
+  descInput.name = "desciption"; //this is for later use when i need to fetch this data
+  descInput.required = true; //forces user to fill out
+
+  descLabel.appendChild(descInput);
+  descForm.appendChild(descLabel);
+  form.appendChild(descForm); // this process of inside of an inside is hard for me. need to practice more. maybe use neopets idea.
+
+  // DATE
+  // create date part of the form
+  const dateForm = document.createElement("div");
+  const dateLabel = document.createElement("label");
+  dateLabel.textContent = "Date";
+  const dateInput = document.createElement("input");
+  dateInput.type = "date"; //makes it so you use a date picker in the browser.
+  dateInput.name = "data"; //for later use when fetching data
+  dateInput.required = true; // forces user to fill out date
+
+  // appends the different parts into each other for the form. nest input into label. label into wrapper. wrapper into form.
+  //  form(wrapper(label(input)))
+  dateLabel.appendChild(dateInput);
+  dateForm.appendChild(dateLabel);
+  form.appendChild(dateForm);
+
+  // LOCATION
+  // create location part of the form
+  const locationForm = document.createElement("div");
+  const locationLabel = document.createElement("label");
+  locationLabel.textContent = "Location";
+
+  const locationInput = document.createElement("input");
+  locationInput.name = "location";
+  locationInput.required = true;
+
+  locationLabel.appendChild(locationInput);
+  locationForm.appendChild(locationLabel);
+  form.appendChild(locationForm);
 
   return form;
 }
