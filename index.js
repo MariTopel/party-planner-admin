@@ -194,6 +194,12 @@ function partyForm() {
   locationForm.appendChild(locationLabel);
   form.appendChild(locationForm);
 
+  // create button that will capture the data when clicked. a submit button
+  const submitButton = document.createElement("Button");
+  submitButton.type = "submit"; //pre known javascript thing that makes the button submit
+  submitButton.textContent = "Add Party!";
+  form.appendChild(submitButton);
+
   return form;
 }
 
