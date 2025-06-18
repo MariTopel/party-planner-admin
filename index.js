@@ -143,6 +143,20 @@ function partyForm() {
   nameInput.name = "name";
   nameInput.required = true; // this checks to make sure the user has to put something there
 
+  // make a wrapper and so forth for the description feild
+  const descForm = document.createElement("div");
+  const descLabel = document.createElement("label");
+  descLabel.textContent = "Description";
+  const descInput = document.createElement("input"); // can also use <textarea> to have a multi line description but I don't want to go outside my comfort zone.
+  descInput.name = "desciption";
+  descInput.required = true; //forces user to fill out
+
+  //
+
+  descLabel.appendChild(descInput);
+  descForm.appendChild(descLabel);
+  form.appendChild(descForm); // this process of inside of an inside is hard for me. need to practice more. maybe use neopets idea.
+
   // this appends the input to inside the label section
   nameLabel.appendChild(nameInput);
   // this appends the form into the div that holds the label. if i am imagining this correctly
