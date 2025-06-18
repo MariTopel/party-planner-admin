@@ -105,6 +105,26 @@ function SelectedParty() {
   `;
   $party.querySelector("GuestList").replaceWith(GuestList());
 
+  // adds delete button
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete Party";
+  $party.appendChild(deleteButton);
+
+  deleteButton.addEventListener("click", async (deletBut) => {
+    try {
+      // sends the delete to the API. the api is where the data is stored
+      await fetch(API + "/events/" + selectedParty.id, {
+        method: "DELETE",
+      });
+
+      // clears the selectedParty function and re fetches the api list?
+      selectedParty = null;
+      await getParties();
+    } catch (error) {
+      console.error("not able to delete party", error);
+    }
+  });
+
   return $party;
 }
 
@@ -157,7 +177,7 @@ function partyForm() {
   const descLabel = document.createElement("label");
   descLabel.textContent = "Description";
   const descInput = document.createElement("input"); // can also use <textarea> to have a multi line description but I don't want to go outside my comfort zone.
-  descInput.name = "desciption"; //this is for later use when i need to fetch this data
+  descInput.name = "description"; //this is for later use when i need to fetch this data
   descInput.required = true; //forces user to fill out
 
   descLabel.appendChild(descInput);
@@ -171,7 +191,7 @@ function partyForm() {
   dateLabel.textContent = "Date";
   const dateInput = document.createElement("input");
   dateInput.type = "date"; //makes it so you use a date picker in the browser.
-  dateInput.name = "data"; //for later use when fetching data
+  dateInput.name = "date"; //for later use when fetching data
   dateInput.required = true; // forces user to fill out date
 
   // appends the different parts into each other for the form. nest input into label. label into wrapper. wrapper into form.
@@ -199,6 +219,42 @@ function partyForm() {
   submitButton.type = "submit"; //pre known javascript thing that makes the button submit
   submitButton.textContent = "Add Party!";
   form.appendChild(submitButton);
+
+  //adding event listener and the ability to get the information from the form
+  form.addEventListener("submit", async (f) => {
+    f.preventDefault(); //apparently stops the page from reloading
+
+    // gets info from form and makes them values
+    const formData = new FormData(form);
+    const name = formData.get("name");
+    const description = formData.get("description");
+    const dateValue = formData.get("date");
+    const location = formData.get("location");
+
+    // makes data into a string that can be used. ISO?
+    const isoDate = new Date(dateValue).toISOString();
+
+    try {
+      // post request???
+      const response = await fetch(API + "/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          description,
+          date: isoDate,
+          location,
+        }),
+      });
+      const { data } = await response.json();
+
+      // clears the form
+      form.reset();
+      await getParties();
+    } catch (error) {
+      console.error("couldn't create party", error);
+    }
+  });
 
   return form;
 }
