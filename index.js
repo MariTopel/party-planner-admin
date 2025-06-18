@@ -133,6 +133,23 @@ function partyForm() {
   //makes container for the form
   const form = document.createElement("form");
 
+  //this makes a wrapper for the name feild
+  const nameForm = document.createElement("div");
+  // makes the label and set text to label
+  const nameLabel = document.createElement("label"); //remember that javascript is matching what I put in quotes to what it already knows to html. So like it doesn't have a premade thing for this. It just is inputting <label> and html just so happens to also have a meaning for <label>
+  nameLabel.textContent = "Name";
+  //makes <input> for the name form
+  const nameInput = document.createElement("input"); // i am typing in input and HTML just so happens to have a thing for <input> but if i just put "blarp" it woud not work
+  nameInput.name = "name";
+  nameInput.required = true; // this checks to make sure the user has to put something there
+
+  // this appends the input to inside the label section
+  nameLabel.appendChild(nameInput);
+  // this appends the form into the div that holds the label. if i am imagining this correctly
+  nameForm.appendChild(nameLabel);
+  // this appends the div that holds the label into the form??
+  form.appendChild(nameForm);
+
   return form;
 }
 
